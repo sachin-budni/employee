@@ -1,0 +1,18 @@
+.form-main{
+    width: 100%;
+    margin: 0% auto;
+}
+.snapshot {
+    width: 100%;
+}
+.form-element{
+    width: 100%;
+    margin: 0% auto;
+    max-width: 400px;
+}
+.form-fields{
+    width: 50%;
+}
+.h-100{
+    height: calc(100vh - 64px);
+}

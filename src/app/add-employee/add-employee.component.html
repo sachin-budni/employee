@@ -1,0 +1,72 @@
+<div class="form-main">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit(employeeForm.value)" fxLayout="row">
+        <div class="form-fields" fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <webcam
+                    [width]="300"
+                    [height]="300"
+                    [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                    [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                    [videoOptions]="videoOptions"
+                    [imageQuality]="1"
+                    (cameraSwitched)="cameraWasSwitched($event)"
+                ></webcam>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <button class="actionBtn" mat-button type="button" (click)="triggerSnapshot();">
+                    <mat-icon>camera_alt</mat-icon> Take
+                </button>
+                <button class="actionBtn" *ngIf="showWebcam" mat-button type="button" (click)="toggleWebcam();">
+                    <mat-icon>cancel</mat-icon>    Close
+                </button>
+                <button class="actionBtn" *ngIf="!showWebcam" mat-button type="button" (click)="toggleWebcam();">
+                    <mat-icon>open_in_new</mat-icon> Open
+                </button>
+            </div>
+            <div class="snapshot" fxLayout="row" fxLayoutAlign="center center" *ngIf="webcamImage">
+                <img width="300px" [src]="webcamImage.imageAsDataUrl"/>
+            </div>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="center center" class="form-fields h-100">
+            <mat-form-field class="form-element" appearance="outline">
+                <input matInput placeholder="First Name *" formControlName="firstName">
+                <mat-error *ngIf="!employeeForm.controls['firstName'].valid && employeeForm.controls['firstName'].touched">
+                    {{ requiredAlert }}
+                </mat-error>
+            </mat-form-field>
+                    
+            <mat-form-field class="form-element" appearance="outline">
+                <input matInput placeholder="Last Name *" formControlName="lastName">
+                <mat-error *ngIf="!employeeForm.controls['lastName'].valid && employeeForm.controls['lastName'].touched">
+                    {{ requiredAlert }}
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="form-element" appearance="outline">
+                <input matInput placeholder="Email *" formControlName="email">
+                <mat-error *ngIf="!employeeForm.controls['email'].valid && employeeForm.controls['email'].touched">
+                    {{ requiredAlert }}
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="form-element" appearance="outline">
+                <input matInput type="number" maxlength="10" minlength="10" placeholder="Mobile Number *" formControlName="mobile">
+                <mat-error *ngIf="!employeeForm.controls['mobile'].valid && employeeForm.controls['mobile'].touched">
+                    {{ requiredAlert }}
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="form-element" appearance="outline">
+                <input matInput placeholder="Current Location Name *" formControlName="location">
+                <mat-error *ngIf="!employeeForm.controls['location'].valid && employeeForm.controls['location'].touched">
+                    {{ requiredAlert }}
+                </mat-error>
+            </mat-form-field>
+        
+            <div fxLayout="row" fxLayoutAlign="end center" class="form-element" fxLayoutGap='10px'>
+                <button mat-raised-button color="primary" type="submit">Submit</button>
+                <button mat-raised-button color="accent" (click)="reset()" type="button">Reset</button>
+            </div>
+        </div>
+    </form>
+</div>
